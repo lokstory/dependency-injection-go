@@ -1,4 +1,4 @@
-# dependency-injection-go
+# digo
 Say goodbye to "import cycle not allowed"
 
 ## Before use 
