@@ -1,7 +1,9 @@
 # dependency-injection-go
 Say goodbye to "import cycle not allowed"
 
-## Wonderful package structure 
+## Before use 
+
+#### Wonderful package structure
 
 [Trying Clean Architecture on Golang - Iman Tumorang](https://hackernoon.com/golang-clean-archithecture-efd6d7c43047)
 
