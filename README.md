@@ -14,9 +14,11 @@
 * [Before use](#before-use)
 * [Annotations](#annotations)
     * [DigoSource](#digosource)
-        * [Inject the dependency by type](#inject-the-dependency-by-type)
-        * [Inject the dependency by name](#inject-the-dependency-by-name)
+        * [Setting the source by type](#setting-the-source-by-type)
+        * [Setting the source by name](#setting-the-source-by-name)
     * [DigoInject](#digoinject)
+        * [Inject the dependency by type](#injecting-the-dependency-by-type)
+        * [Inject the dependency by name](#injecting-the-dependency-by-name)
 
 -------------------------
 
@@ -32,6 +34,7 @@
 
 * Expose variable by upper camel case
 * The source key must be unique
+* The variable must be initialized before call digo.Start()
 
 
 #### Setting the source by type
@@ -55,16 +58,20 @@ The source key will be HelloService
     
 ### @DigoInject
 
+When using this annotation,
+it will create digo.go in the same package to inject the dependency.
+
+
 #### Injecting the dependency by type
 
 ```go
-    // @DigoSource
+    // @DigoInject
     var helloService IHelloService
 ```
 
 #### Injecting the dependency by name
 
 ```go
-    // @DigoSource(HelloService)
+    // @DigoInject(HelloService)
     var helloService IHelloService
 ```    
