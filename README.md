@@ -6,7 +6,7 @@
 # Digo
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/lokstory/digo/master/digo.svg">
+  <img src="https://cdn.rawgit.com/lokstory/digo/master/digo.svg">
 </p>
 
 *In Taiwanese, the mean of "Digo" is "Pig Brother".*
