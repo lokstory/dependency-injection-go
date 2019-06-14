@@ -1,13 +1,11 @@
+<p align="center"><img src="https://raw.githubusercontent.com/lokstory/digo/master/digo.png"></p>
+
 <p align="center">
   <a href="https://goreportcard.com/report/github.com/lokstory/digo"><img src="https://goreportcard.com/badge/github.com/lokstory/digo"></a>
   <a href="https://godoc.org/github.com/lokstory/digo"><img src="https://godoc.org/github.com/lokstory/digo?status.svg" alt="GoDoc"></a>
 </p>
 
 # Digo
-
-<p align="center">
-  <img src="https://cdn.rawgit.com/lokstory/digo/master/digo.svg">
-</p>
 
 *In Taiwanese, the mean of "Digo" is "Pig Brother".*
 
