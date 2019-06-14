@@ -2,7 +2,6 @@ package generator
 
 import (
 	"../model"
-	"encoding/json"
 	"fmt"
 	"log"
 	"strings"
