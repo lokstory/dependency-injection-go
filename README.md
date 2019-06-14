@@ -5,6 +5,10 @@
 
 # Digo
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/lokstory/digo/master/digo.svg">
+</p>
+
 *In Taiwanese, the mean of "Digo" is "Pig Brother".*
 
 ### Say goodbye to "import cycle not allowed"!
