@@ -14,16 +14,23 @@ import (
 type manager struct {
 	sync.RWMutex
 	contract.IManager
-	sourceMap map[string]unsafe.Pointer
+	sourceValueMap map[string]reflect.Value
+	sourcePtrMap map[string]unsafe.Pointer
 }
 
 var Manager = &manager{
-	sourceMap: map[string]unsafe.Pointer{},
+	sourceValueMap: map[string]reflect.Value{},
+	sourcePtrMap: map[string]unsafe.Pointer{},
 }
 
-func (m *manager) setSource(key string, value interface{}) {
+func (m *manager) setSource(key string, source interface{}) {
+	value := reflect.ValueOf(source)
+
 	m.Lock()
-	m.sourceMap[key] = unsafe.Pointer(reflect.ValueOf(value).Pointer())
+
+	m.sourceValueMap[key] = value
+	m.sourcePtrMap[key] = unsafe.Pointer(value.Pointer())
+
 	m.Unlock()
 }
 
@@ -33,21 +40,19 @@ func (m *manager) Init() {
 }
 
 func (m *manager) initSource() {
-	//m.setSource("hello", &hello.Service)
-}
-
-func (m *manager) setDependency(key string, value interface{}) {
-	m.Lock()
-	m.sourceMap[key] = unsafe.Pointer(reflect.ValueOf(value).Pointer())
-	m.Unlock()
 }
 
 func (m *manager) initDependency() {
-	//world.InitDependency(m)
 }
 
-func (m *manager) GetPointer(key string) unsafe.Pointer {
+func (m *manager) SourcePointer(key string) unsafe.Pointer {
 	m.RLock()
 	defer m.RUnlock()
-	return m.sourceMap[key]
+	return m.sourcePtrMap[key]
+}
+
+func (m *manager) SourceValue(key string) reflect.Value {
+	m.RLock()
+	defer m.RUnlock()
+	return m.sourceValueMap[key]
 }

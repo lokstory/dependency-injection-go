@@ -7,4 +7,5 @@ type AnnotationItem struct {
 	FilePath       string
 	InjectType     string
 	AnnotationType string
+	PackageName    string
 }

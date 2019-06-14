@@ -15,6 +15,6 @@ func (s *HelloService) Hi() {
 	log.Println(s.Text)
 }
 
-// Inject by key
-// @DigoSource(HelloService)
-var Service IHelloService = &HelloService{Text:"Hello, World!"}
+// Inject by type
+// @DigoSource
+var Service3 IHelloService = &HelloService{Text:"Hello, World 3!"}

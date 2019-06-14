@@ -1,11 +1,15 @@
 package generator
 
-const ContractTemplate = `
-package contract
+const ContractTemplate = `package contract
 
-import "unsafe"
+import (
+	"reflect"
+	"unsafe"
+)
 
 type IManager interface {
-	GetPointer(string) unsafe.Pointer
+	SourcePointer(key string) unsafe.Pointer
+	SourceValue(key string) reflect.Value
+	InjectByValue(sourceKey string, targetValue reflect.Value)
 }
 `

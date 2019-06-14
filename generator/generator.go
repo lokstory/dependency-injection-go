@@ -10,41 +10,56 @@ package generator
 
 import (
 	"../model"
-	"fmt"
-	"strings"
+	"log"
+	"os"
+	"path/filepath"
 )
 
 const (
-	ContractPath = "dependency/contract"
-	ManagerPath = "dependency"
+	digoPath = "digo/"
+	managerContractPath = digoPath + "contract/manager.go"
 )
 
 func Create(cfg *model.Config) {
- // packages, initSource, initDependency
 	createManager(cfg)
 }
 
-func createManager(cfg *model.Config) {
-	var packages, initSource, initDependency string
-	template := managerTemplate
+func deleteIfExists(dir string) error {
+	_, err := os.Stat(dir)
 
-	sourceFormat := `	m.setSource("%s", &%s)` + "\n"
-
-	for key, item := range cfg.SourceMap {
-		initSource += fmt.Sprintf(sourceFormat, key, item.VariableName)
+	if err == nil {
+		return os.Remove(dir)
 	}
 
-	if len(initSource) > 0 {
-		initSource = strings.TrimSuffix(initSource, "\n")
+	if os.IsNotExist(err) {
+		return nil
+	}
+	return err
+}
+
+func saveFile(codePath string, codes string) error {
+	dir := filepath.Dir(codePath)
+	if _, err := os.Stat(dir); err != nil {
+		if !os.IsNotExist(err) {
+			return err
+		}
+		if err := os.MkdirAll(dir, os.FileMode(0644)); err != nil {
+			log.Println(err)
+		}
 	}
 
-	result := strings.ReplaceAll(template, `${initSource}`, initSource)
+	f, err := os.Create(codePath)
+	if err != nil {
+		return err
+	}
 
-	fmt.Println("result:", result)
+	defer f.Close()
 
-	fmt.Println("packages:", packages)
-	fmt.Println("initSource:", initSource)
-	fmt.Println("initDependency:", initDependency)
+	if _, err := f.WriteString(codes); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func main() {
