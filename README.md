@@ -1,6 +1,8 @@
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/lokstory/digo)](https://goreportcard.com/report/github.com/lokstory/digo)
-[![GoDoc](https://godoc.org/github.com/lokstory/digo?status.svg)](https://godoc.org/github.com/lokstory/digo)
+<p align="center">
+  <a href="https://goreportcard.com/report/github.com/lokstory/digo"><img src="https://goreportcard.com/badge/github.com/lokstory/digo"></a>
+  <a href="https://godoc.org/github.com/lokstory/digo"><img src="https://godoc.org/github.com/lokstory/digo?status.svg" alt="GoDoc"></a>
+</p>
 
 # digo
 Say goodbye to "import cycle not allowed"
