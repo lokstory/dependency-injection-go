@@ -7,7 +7,7 @@
 
 *In Taiwanese, the mean of "Digo" is "Pig Brother".*
 
-##### Say goodbye to "import cycle not allowed"!
+### Say goodbye to "import cycle not allowed"!
 
 -------------------------
 
