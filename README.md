@@ -1,12 +1,13 @@
 # Digo
 
-In Taiwanese, the mean of "Digo" is "Pig Brother".
-------
-
 <p align="center">
   <a href="https://goreportcard.com/report/github.com/lokstory/digo"><img src="https://goreportcard.com/badge/github.com/lokstory/digo"></a>
   <a href="https://godoc.org/github.com/lokstory/digo"><img src="https://godoc.org/github.com/lokstory/digo?status.svg" alt="GoDoc"></a>
 </p>
+
+*In Taiwanese, the mean of "Digo" is "Pig Brother".*
+
+-------------------------
 
 ### Say goodbye to "import cycle not allowed"
 
