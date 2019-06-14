@@ -12,5 +12,5 @@ Say goodbye to "import cycle not allowed"
     var HelloService IHelloService = &HelloService{}
 
 #### Inject dependency by annotation
-    // @DigoInject
-    var IHelloService helloService
+    // @DigoInject(HelloService)
+    var helloService IHelloService
