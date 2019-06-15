@@ -28,7 +28,7 @@ func CreatePackageConfig(cfg *Config) *PackageConfig {
 	var packages []string
 	// key: dir, value: alias
 	packageMap := map[string]string{}
-	// packageName -> DIR -> id
+	// packageName -> dir -> id
 	aliasMap := map[string]map[string]*PackageItem{}
 
 	itemMap := map[string]*PackageItem{}

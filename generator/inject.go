@@ -18,11 +18,8 @@ ${injectDependency}
 }
 `
 
-// // Unsafe cast
-//	//helloService = *(*hello.IHelloService)(manager.SourcePointer("hello"))
-
 // Unsafe cast
-//helloService = *(*hello.IHelloService)(manager.SourcePointer("hello"))
+// helloService = *(*hello.IHelloService)(manager.SourcePointer("hello"))
 
 // Reflection
 // ptr := manager.SourceValue("hello").Elem().Addr()
@@ -59,7 +56,7 @@ func createInjections(cfg *model.Config) {
 	}
 
 	for _, value := range injectMap {
-		// remove last empty line
+		// Remove the last empty line if exists
 		if len(value.InjectDependency) > 0 {
 			value.InjectDependency = strings.TrimSuffix(value.InjectDependency, "\n")
 		}
@@ -72,7 +69,7 @@ func createInjections(cfg *model.Config) {
 
 		result := replacer.Replace(injectTemplate)
 
-		// generate digo.go
+		// Generate digo.go
 		digoPath := fmt.Sprintf("%s/%s/digo.go", cfg.RootPath, value.Dir)
 		if err := saveFile(digoPath, result); err != nil {
 			log.Panic(err)

@@ -2,6 +2,7 @@ package model
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -9,6 +10,7 @@ import (
 	"strings"
 )
 
+// Config
 type Config struct {
 	RootPath      string
 	SourceMap     map[string]*AnnotationItem
@@ -16,6 +18,7 @@ type Config struct {
 	PackageConfig *PackageConfig
 }
 
+// Create config by root path of project
 func CreateConfig(rootPath string) (cfg *Config, retErr error) {
 	sourceMap := map[string]*AnnotationItem{}
 	var targets []*AnnotationItem
@@ -88,8 +91,6 @@ func CreateConfig(rootPath string) (cfg *Config, retErr error) {
 						Key:            key,
 						PackageName:    packageName,
 					}
-				default:
-					//reset()
 				}
 
 				continue
@@ -106,7 +107,7 @@ func CreateConfig(rootPath string) (cfg *Config, retErr error) {
 
 			var typeName string
 
-			// remove package
+			// Remove package
 			if len(matches) >= 3 {
 				typeName = matches[2]
 				if id := strings.Index(typeName, "."); id >= 0 {
@@ -116,8 +117,21 @@ func CreateConfig(rootPath string) (cfg *Config, retErr error) {
 
 			item.VariableName = matches[1]
 			item.TypeName = typeName
+
+			// Names of variable type may be duplicated with different packages.
+			// If inject dependencies by type, add package prefix if exists.
 			if item.InjectType == InjectByType {
-				item.Key = typeName
+				relPath, err := filepath.Rel(cfg.RootPath, item.FilePath)
+				if err != nil {
+					log.Panic(err)
+				}
+
+				dir := filepath.Dir(relPath)
+				if len(dir) > 0 {
+					dir += "/"
+				}
+
+				item.Key = fmt.Sprintf("%s%s", dir, typeName)
 			}
 
 			switch item.AnnotationType {

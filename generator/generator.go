@@ -22,13 +22,13 @@ const (
 	managerContractFilePath = managerContractDirPath + "/manager.go"
 )
 
-// Start to generate manager and digo file
+// Start to generate the digo package and digo.go files
 func Start(cfg *model.Config) {
 	createManager(cfg)
 	createInjections(cfg)
 }
 
-// delete file if exists
+// Delete file if exists
 func deleteIfExists(dir string) error {
 	_, err := os.Stat(dir)
 	if err == nil {
@@ -42,7 +42,7 @@ func deleteIfExists(dir string) error {
 	return err
 }
 
-// get the path to root by depth
+// Get the path to root by depth.
 // example: hello/world will return ../../
 func pathPrefix(depth int) string {
 	if depth <= 0 {
@@ -52,7 +52,7 @@ func pathPrefix(depth int) string {
 	return strings.Repeat(`../`, depth)
 }
 
-// save go file by string
+// Save go file by string
 func saveFile(codePath string, codes string) error {
 	dir := filepath.Dir(codePath)
 	if _, err := os.Stat(dir); err != nil {

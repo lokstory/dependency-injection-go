@@ -12,7 +12,8 @@ type Service struct {
 }
 
 // @DigoInject
-var helloService hello.IHelloService = nil
+// Inject dependency by type
+var helloService hello.IHelloService
 
 func Hello() {
 	helloService.Hi()

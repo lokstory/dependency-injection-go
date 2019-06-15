@@ -20,5 +20,5 @@ func (s *HelloService) Hi() {
 }
 
 // Inject by type
-// @DigoSource(HelloService3)
+// @DigoSource
 var Service3 IHelloService = &HelloService{Text: "Hello, 3!"}

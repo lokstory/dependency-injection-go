@@ -81,6 +81,7 @@ func (m *Manager) InjectByGeneric(sourceKey string, value interface{}) {
 
 `
 
+// Create dependency manager and contract in the digo package of project's root path
 func createManager(cfg *model.Config) {
 	var importPackage, initSource, initDependency string
 	template := managerTemplate
@@ -113,7 +114,7 @@ func createManager(cfg *model.Config) {
 		importPackage += fmt.Sprintf(packageFormat, packageItem.Alias+" ", dir)
 	}
 
-	// remove last empty line
+	// Remove the last empty line if exists
 	if len(importPackage) > 0 {
 		importPackage = strings.TrimSuffix(importPackage, "\n")
 	}

@@ -1,5 +1,6 @@
 package model
 
+// AnnotationItem for config
 type AnnotationItem struct {
 	Key            string
 	VariableName   string
