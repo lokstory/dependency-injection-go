@@ -1,9 +1,9 @@
 package main
 
 import (
-	"./generator"
-	"./model"
 	"flag"
+	"github.com/lokstory/digo/generator"
+	"github.com/lokstory/digo/model"
 	"log"
 	"path/filepath"
 )
