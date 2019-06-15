@@ -16,8 +16,8 @@
 * [Before use](#before-use)
 * [Installation](#installation)
 * [Usage](#usage)
-    * [Generate codes](#generate-codes)
-    * [Inject dependencies](#inject-dependencies)
+    * [Generation](#generation)
+    * [Injecting](#injecting)
 * [Annotations](#annotations)
     * [DigoSource](#digosource)
         * [Set sources by type](#set-sources-by-type)
@@ -43,7 +43,12 @@ go get -u github.com/lokstory/digo
 
 ## Usage
 
-### Generate codes
+### Generation
+
+It will generated below files:
+
+* digo package in the root path of project
+* digo.go in every packages which need to inject dependencies
 
 Linux
 
@@ -57,11 +62,7 @@ Windows
 go run %GOPATH%\src\github.com\lokstory\digo\main.go -path=PROJECT_ROOT_PATH
 ```
 
-* It will generated the digo package in the root path of project
-* It will generated digo.go in packages which need to inject dependencies
-
-
-### Start
+### Injecting
 
 ```go
 package main
