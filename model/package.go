@@ -46,7 +46,7 @@ func CreatePackageConfig(cfg *Config) *PackageConfig {
 		if lastID := strings.LastIndex(dir, "/"); lastID >= 0 {
 			packageName = dir[lastID+1:]
 		} else {
-			log.Panic("parsing package failed:", item.FilePath)
+			packageName = dir
 		}
 
 		var alias string

@@ -44,6 +44,8 @@ The source key will be IHelloService
 
 ```go
     // @DigoSource
+    // This generator allows to write comments between annotations and variables.
+    // Annotations will be ignored if contains empty lines.
     var HelloService IHelloService = &HelloService{}
 ```
 

@@ -2,8 +2,8 @@ package generator
 
 import (
 	"../model"
-	"encoding/json"
 	"fmt"
+	"log"
 	"strings"
 )
 
@@ -18,7 +18,6 @@ ${injectDependency}
 }
 `
 
-
 // // Unsafe cast
 //	//helloService = *(*hello.IHelloService)(manager.SourcePointer("hello"))
 
@@ -29,83 +28,54 @@ ${injectDependency}
 // ptr := manager.SourceValue("hello").Elem().Addr()
 // reflect.ValueOf(&helloService).Elem().Set(ptr)
 
-type InjectItem struct {
-	PackageName string
-	DigoContractPath string
-	InjectDependency string
-}
-
 func createInjections(cfg *model.Config) {
 	// key: dir
-	injectMap := map[string]*InjectItem{}
+	injectMap := map[string]*model.InjectItem{}
 	packageCfg := cfg.PackageConfig
 
-	fmt.Println("target length:", len(cfg.Targets))
+	injectFormat := `	manager.InjectByGeneric("%s", &%s)` + "\n"
+
 	for _, target := range cfg.Targets {
 		packageItem := packageCfg.ItemMap[target.FilePath]
 		dir := packageItem.Path
-		fmt.Println("package dir:", packageItem.Path, "alias:", packageItem.Alias)
 
 		var depth int
 		if len(dir) > 0 {
-			depth = strings.Count(dir, `/`)+2
+			depth = strings.Count(dir, `/`) + 1
 		}
 		pathPrefix := pathPrefix(depth)
 
-		fmt.Println("target path:", target.FilePath, "depth:", depth, "path prefix:", pathPrefix)
-
 		item, ok := injectMap[dir]
 		if !ok {
-			item = &InjectItem{
-				PackageName: target.PackageName,
+			item = &model.InjectItem{
+				PackageName:      target.PackageName,
+				Dir:              packageItem.Path,
 				DigoContractPath: fmt.Sprintf("%s%s", pathPrefix, managerContractDirPath),
 			}
 			injectMap[dir] = item
 		}
+
+		item.InjectDependency += fmt.Sprintf(injectFormat, target.Key, target.VariableName)
 	}
 
-	b, _ := json.Marshal(injectMap)
-	fmt.Println("inject map:", string(b))
+	for _, value := range injectMap {
+		// remove last empty line
+		if len(value.InjectDependency) > 0 {
+			value.InjectDependency = strings.TrimSuffix(value.InjectDependency, "\n")
+		}
 
-	// key: filePath
-	//templateMap := map[string]string{}
-	//packageCfg := cfg.PackageConfig
-	//
-	//for key, source := range cfg.SourceMap {
-	//	packageItem := packageCfg.ItemMap[source.FilePath]
-	//
-	//	var callPrefix string
-	//	alias := packageItem.Alias
-	//	if len(alias) > 0 {
-	//		callPrefix = alias + "."
-	//	}
-	//
-	//	initSource += fmt.Sprintf(sourceFormat, key, callPrefix, source.VariableName)
-	//}
-	//
-	//for _, target := range cfg.Targets {
-	//	packageItem := packageCfg.ItemMap[target.FilePath]
-	//	initDependency += fmt.Sprintf(depFormat, packageItem.Alias)
-	//
-	//	replacer := strings.NewReplacer(
-	//		`${packageName}`, target.PackageName,
-	//		`${initSource}`, initSource,
-	//		`${initDependency}`, initDependency,
-	//	)
-	//
-	//	result := replacer.Replace(template)
-	//	fmt.Println("result:", result)
-	//
-	//	fmt.Println("importPackage:", importPackage)
-	//	fmt.Println("initSource:", initSource)
-	//	fmt.Println("initDependency:", initDependency)
-	//}
-	//
-	//// generate manager
-	//managerPath := fmt.Sprintf("%s/%s/manager.go", cfg.RootPath, ManagerPath)
-	//if err := saveFile(managerPath, result); err != nil {
-	//	log.Panic(err)
-	//}
-	//
-	//fmt.Println("Generate file successfully")
+		replacer := strings.NewReplacer(
+			`${packageName}`, value.PackageName,
+			`${digoContractPath}`, value.DigoContractPath,
+			`${injectDependency}`, value.InjectDependency,
+		)
+
+		result := replacer.Replace(injectTemplate)
+
+		// generate digo.go
+		digoPath := fmt.Sprintf("%s/%s/digo.go", cfg.RootPath, value.Dir)
+		if err := saveFile(digoPath, result); err != nil {
+			log.Panic(err)
+		}
+	}
 }

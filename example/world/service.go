@@ -11,5 +11,9 @@ type Service struct {
 	IService
 }
 
-// @DigoInject(HelloService)
-var helloService hello.IHelloService
+// @DigoInject
+var helloService hello.IHelloService = nil
+
+func Hello() {
+	helloService.Hi()
+}

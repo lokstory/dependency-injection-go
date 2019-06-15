@@ -3,23 +3,23 @@ package main
 import (
 	"./generator"
 	"./model"
-	"encoding/json"
 	"flag"
-	"fmt"
 	"log"
 	"path/filepath"
 )
 
-// Generate
+// TODO CLI
+// Generate digo package and inject files
 func build() {
 
 }
 
-// Delete digo package and all of digo.go
+// Delete digo package and all of inject files
 func delete() {
 
 }
 
+// Start
 func main() {
 	var rootPath string
 	flag.StringVar(&rootPath, "path", ".", "root path of project")
@@ -40,9 +40,6 @@ func main() {
 	if err != nil {
 		log.Panic(err)
 	}
-
-	b, _ := json.Marshal(cfg)
-	fmt.Println("config:", string(b))
 
 	generator.Start(cfg)
 }

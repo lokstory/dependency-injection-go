@@ -2,7 +2,6 @@ package generator
 
 import (
 	"../model"
-	"encoding/json"
 	"fmt"
 	"log"
 	"strings"
@@ -19,37 +18,37 @@ ${importPackage}
 )
 
 // Digo Dependency Manager
-
-type manager struct {
+type Manager struct {
 	sync.RWMutex
 	contract.IManager
 	sourceValueMap map[string]reflect.Value
 	sourcePtrMap map[string]unsafe.Pointer
 }
 
-var Manager = &manager{
+// Singleton
+var manager = &Manager{
 	sourceValueMap: map[string]reflect.Value{},
 	sourcePtrMap: map[string]unsafe.Pointer{},
 }
 
-// Initialize sources, then injecting the dependencies
-func (m *manager) Start() {
-	m.initSources()
-	m.injectDependencies()
+// Start to set source, then inject dependencies
+func Start() {
+	manager.initSources()
+	manager.injectDependencies()
 }
 
 // Inject dependencies
-func (m *manager) injectDependencies() {
+func (m *Manager) injectDependencies() {
 ${initDependency}
 }
 
 // Initialize sources
-func (m *manager) initSources() {
+func (m *Manager) initSources() {
 ${initSource}
 }
 
 // set the source by key
-func (m *manager) setSource(key string, source interface{}) {
+func (m *Manager) setSource(key string, source interface{}) {
 	value := reflect.ValueOf(source)
 	
 	m.Lock()
@@ -61,24 +60,25 @@ func (m *manager) setSource(key string, source interface{}) {
 }
 
 // SourceValue get the source's pointer by key
-func (m *manager) SourcePointer(key string) unsafe.Pointer {
+func (m *Manager) SourcePointer(key string) unsafe.Pointer {
 	m.RLock()
 	defer m.RUnlock()
 	return m.sourcePtrMap[key]
 }
 
 // SourceValue get the source's generic value by key
-func (m *manager) SourceValue(key string) reflect.Value {
+func (m *Manager) SourceValue(key string) reflect.Value {
 	m.RLock()
 	defer m.RUnlock()
 	return m.sourceValueMap[key]
 }
 
 // InjectByValue inject the dependency by source's key and target generic value
-func (m *manager) InjectByValue(sourceKey string, targetValue reflect.Value) {
-	ptr := m.SourceValue(sourceKey).Elem().Addr()
-	targetValue.Elem().Set(ptr)
+func (m *Manager) InjectByGeneric(sourceKey string, value interface{}) {
+	source := m.SourceValue(sourceKey).Elem()
+	reflect.ValueOf(value).Elem().Set(source)
 }
+
 `
 
 func createManager(cfg *model.Config) {
@@ -89,9 +89,6 @@ func createManager(cfg *model.Config) {
 	packageFormat := `	%s"../%s"` + "\n"
 	sourceFormat := `	m.setSource("%s", &%s%s)` + "\n"
 	depFormat := `	%s.InjectByDigo(m)` + "\n"
-
-	b, _ := json.Marshal(packageCfg)
-	log.Println("package config:", string(b))
 
 	for key, source := range cfg.SourceMap {
 		packageItem := packageCfg.ItemMap[source.FilePath]
@@ -116,10 +113,7 @@ func createManager(cfg *model.Config) {
 		importPackage += fmt.Sprintf(packageFormat, packageItem.Alias + " ", dir)
 	}
 
-	// Replace \ to /
-	//importPackage = strings.ReplaceAll(importPackage, `\`, `/`)
-
-	// Remove last empty line
+	// remove last empty line
 	if len(importPackage) > 0 {
 		importPackage = strings.TrimSuffix(importPackage, "\n")
 	}
@@ -137,12 +131,6 @@ func createManager(cfg *model.Config) {
 	)
 
 	result := replacer.Replace(template)
-	fmt.Println("result:", result)
-
-	fmt.Println("importPackage:", importPackage)
-	fmt.Println("initSource:", initSource)
-	fmt.Println("initDependency:", initDependency)
-
 
 	// generate contract
 	contractPath := fmt.Sprintf("%s/%s", cfg.RootPath, managerContractFilePath)

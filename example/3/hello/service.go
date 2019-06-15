@@ -4,6 +4,8 @@ import (
 	"log"
 )
 
+// Test duplicate interface
+
 type IHelloService interface {
 	Hi()
 }
@@ -18,5 +20,5 @@ func (s *HelloService) Hi() {
 }
 
 // Inject by type
-// @DigoSource
-var Service3 IHelloService = &HelloService{Text:"Hello, World 3!"}
+// @DigoSource(HelloService3)
+var Service3 IHelloService = &HelloService{Text:"Hello, 3!"}

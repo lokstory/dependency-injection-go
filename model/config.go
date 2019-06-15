@@ -49,7 +49,7 @@ func CreateConfig(rootPath string) (cfg *Config, retErr error) {
 
 			text := strings.TrimSpace(string(line))
 
-			// Skip and disallow empty line
+			// Skip and disallow empty lines
 			if len(text) == 0 {
 				reset()
 				continue

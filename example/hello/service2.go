@@ -1,5 +1,5 @@
 package hello
 
-// Inject by key
+// Set the source by key
 // @DigoSource(HelloService2)
-var Service2 IHelloService = &HelloService{Text:"Hello, World 2!"}
+var Service2 IHelloService = &HelloService{Text:"Hello, 2!"}
