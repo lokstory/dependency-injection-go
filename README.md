@@ -52,7 +52,7 @@ It will generated below files:
 #### Linux
 
 ```bash
-go run $GOPATH\src\github.com\lokstory\digo\main.go -path=PROJECT_ROOT_PATH
+go run $GOPATH/src/github.com/lokstory/digo/main.go -path=PROJECT_ROOT_PATH
 ```
 
 #### Windows
