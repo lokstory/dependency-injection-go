@@ -14,6 +14,7 @@ func build() {
 
 }
 
+// TODO CLI
 // Delete digo package and all of inject files
 func delete() {
 
