@@ -8,12 +8,17 @@ import (
 	"strings"
 )
 
+// PackageConfig
 type PackageConfig struct {
+	// ItemMap
 	ItemMap  map[string]*PackageItem
+	// Packages
 	Packages []string
+	// DirMap
 	DirMap   map[string]*PackageItem
 }
 
+// PackageItem
 type PackageItem struct {
 	Path  string
 	Alias string

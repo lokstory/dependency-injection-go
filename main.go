@@ -23,12 +23,12 @@ func delete() {
 // Start
 func main() {
 	var rootPath string
-	flag.StringVar(&rootPath, "path", ".", "root path of project")
+	flag.StringVar(&rootPath, "path", "", "root path of project")
 
 	flag.Parse()
 
 	if len(rootPath) == 0 {
-		log.Panic("path must be set")
+		log.Panic("root path must be set")
 	}
 
 	if p, err := filepath.Abs(rootPath); err != nil {
