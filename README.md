@@ -71,7 +71,7 @@ import (
 )
 
 func main() {
-	// Inject dependencies
+    // Inject dependencies
     digo.Start()
 }
 ```
