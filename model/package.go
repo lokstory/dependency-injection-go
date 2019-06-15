@@ -11,11 +11,11 @@ import (
 // PackageConfig
 type PackageConfig struct {
 	// ItemMap
-	ItemMap  map[string]*PackageItem
+	ItemMap map[string]*PackageItem
 	// Packages
 	Packages []string
 	// DirMap
-	DirMap   map[string]*PackageItem
+	DirMap map[string]*PackageItem
 }
 
 // PackageItem

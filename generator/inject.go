@@ -1,8 +1,8 @@
 package generator
 
 import (
-	"../model"
 	"fmt"
+	"github.com/lokstory/digo/model"
 	"log"
 	"strings"
 )

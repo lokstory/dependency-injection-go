@@ -1,8 +1,8 @@
 package generator
 
 import (
-	"../model"
 	"fmt"
+	"github.com/lokstory/digo/model"
 	"log"
 	"strings"
 )
@@ -110,7 +110,7 @@ func createManager(cfg *model.Config) {
 	// Sort packages
 	for _, dir := range packageCfg.Packages {
 		packageItem := packageCfg.DirMap[dir]
-		importPackage += fmt.Sprintf(packageFormat, packageItem.Alias + " ", dir)
+		importPackage += fmt.Sprintf(packageFormat, packageItem.Alias+" ", dir)
 	}
 
 	// remove last empty line

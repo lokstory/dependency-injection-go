@@ -17,4 +17,4 @@ func (s *HelloService) Hi() {
 
 // Set the source by type
 // @DigoSource
-var Service1 IHelloService = &HelloService{Text:"Hello, 1!"}
+var Service1 IHelloService = &HelloService{Text: "Hello, 1!"}

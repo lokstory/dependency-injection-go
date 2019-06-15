@@ -9,7 +9,7 @@ package generator
 //)
 
 import (
-	"../model"
+	"github.com/lokstory/digo/model"
 	"log"
 	"os"
 	"path/filepath"
