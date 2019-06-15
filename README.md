@@ -67,7 +67,7 @@ go run %GOPATH%\src\github.com\lokstory\digo\main.go -path=PROJECT_ROOT_PATH
 package main
 
 import (
-	"./digo"
+    "./digo"
 )
 
 func main() {
