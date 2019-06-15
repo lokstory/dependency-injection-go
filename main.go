@@ -5,6 +5,7 @@ import (
 	"github.com/lokstory/digo/generator"
 	"github.com/lokstory/digo/model"
 	"log"
+	"os"
 	"path/filepath"
 )
 
@@ -28,7 +29,11 @@ func main() {
 	flag.Parse()
 
 	if len(rootPath) == 0 {
-		log.Panic("root path must be set")
+		log.Panicln("project path must be set")
+	}
+
+	if _, err := os.Stat(rootPath); err != nil {
+		log.Panicln(err)
 	}
 
 	if p, err := filepath.Abs(rootPath); err != nil {
