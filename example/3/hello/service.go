@@ -4,7 +4,7 @@ import (
 	"log"
 )
 
-// Test duplicate interface
+// Test duplicated names of interface and package
 
 type IHelloService interface {
 	Hi()
