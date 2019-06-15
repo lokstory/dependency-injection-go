@@ -47,7 +47,7 @@ go get -u github.com/lokstory/digo
 
 It will generated below files:
 * digo package in the root path of project
-* digo.go in every packages which need to inject dependencies
+* digo.go in every packages which needs to inject dependencies
 
 #### Linux
 
