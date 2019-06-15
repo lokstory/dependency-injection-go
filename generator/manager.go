@@ -18,7 +18,7 @@ ${importPackage}
 	"unsafe"
 )
 
-// Dependency Manager
+// Digo Dependency Manager
 
 type manager struct {
 	sync.RWMutex
@@ -32,19 +32,23 @@ var Manager = &manager{
 	sourcePtrMap: map[string]unsafe.Pointer{},
 }
 
-func (m *manager) Init() {
-	m.initSource()
-	m.initDependency()
+// Initialize sources, then injecting the dependencies
+func (m *manager) Start() {
+	m.initSources()
+	m.injectDependencies()
 }
 
-func (m *manager) initDependency() {
+// Inject dependencies
+func (m *manager) injectDependencies() {
 ${initDependency}
 }
- 
-func (m *manager) initSource() {
+
+// Initialize sources
+func (m *manager) initSources() {
 ${initSource}
 }
 
+// set the source by key
 func (m *manager) setSource(key string, source interface{}) {
 	value := reflect.ValueOf(source)
 	
@@ -56,18 +60,21 @@ func (m *manager) setSource(key string, source interface{}) {
 	m.Unlock()
 }
 
+// SourceValue get the source's pointer by key
 func (m *manager) SourcePointer(key string) unsafe.Pointer {
 	m.RLock()
 	defer m.RUnlock()
 	return m.sourcePtrMap[key]
 }
 
+// SourceValue get the source's generic value by key
 func (m *manager) SourceValue(key string) reflect.Value {
 	m.RLock()
 	defer m.RUnlock()
 	return m.sourceValueMap[key]
 }
 
+// InjectByValue inject the dependency by source's key and target generic value
 func (m *manager) InjectByValue(sourceKey string, targetValue reflect.Value) {
 	ptr := m.SourceValue(sourceKey).Elem().Addr()
 	targetValue.Elem().Set(ptr)
@@ -138,13 +145,13 @@ func createManager(cfg *model.Config) {
 
 
 	// generate contract
-	contractPath := fmt.Sprintf("%s/%s", cfg.RootPath, managerContractPath)
+	contractPath := fmt.Sprintf("%s/%s", cfg.RootPath, managerContractFilePath)
 	if err := saveFile(contractPath, ContractTemplate); err != nil {
 		log.Panic(err)
 	}
 
 	// generate manager
-	managerPath := fmt.Sprintf("%s/%s/manager.go", cfg.RootPath, digoPath)
+	managerPath := fmt.Sprintf("%s/%s/manager.go", cfg.RootPath, digoDirPath)
 	if err := saveFile(managerPath, result); err != nil {
 		log.Panic(err)
 	}

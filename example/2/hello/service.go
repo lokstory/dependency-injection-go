@@ -1,6 +1,8 @@
 package hello
 
-import "log"
+import (
+	"log"
+)
 
 type IHelloService interface {
 	Hi()

@@ -10,6 +10,16 @@ import (
 	"path/filepath"
 )
 
+// Generate
+func build() {
+
+}
+
+// Delete digo package and all of digo.go
+func delete() {
+
+}
+
 func main() {
 	var rootPath string
 	flag.StringVar(&rootPath, "path", ".", "root path of project")
@@ -34,5 +44,5 @@ func main() {
 	b, _ := json.Marshal(cfg)
 	fmt.Println("config:", string(b))
 
-	generator.Create(cfg)
+	generator.Start(cfg)
 }
