@@ -1,6 +1,7 @@
 <p align="center"><img src="https://raw.githubusercontent.com/lokstory/digo/master/digo.png"></p>
 
 <p align="center">
+  <a href="https://goreportcard.com/report/github.com/lokstory/digo"><img src="https://goreportcard.com/badge/github.com/lokstory/digo"></a>
   <a href="https://godoc.org/github.com/lokstory/digo"><img src="https://godoc.org/github.com/lokstory/digo?status.svg" alt="GoDoc"></a>
 </p>
 
@@ -27,7 +28,7 @@
 
 -------------------------
 
-## Before use 
+## Before use
 
 #### Wonderful package structure
 
@@ -45,17 +46,16 @@ go get -u github.com/lokstory/digo
 ### Generation
 
 It will generated below files:
-
 * digo package in the root path of project
 * digo.go in every packages which need to inject dependencies
 
-Linux
+#### Linux
 
 ```bash
 go run $GOPATH\src\github.com\lokstory\digo\main.go -path=PROJECT_ROOT_PATH
 ```
 
-Windows
+#### Windows
 
 ```cmd
 go run %GOPATH%\src\github.com\lokstory\digo\main.go -path=PROJECT_ROOT_PATH
@@ -86,7 +86,7 @@ func main() {
 
 #### Set sources by type
 
-The source key will be IHelloService
+The source key will be IHelloService.
 
 ```go
     // @DigoSource
@@ -97,7 +97,7 @@ The source key will be IHelloService
 
 #### Set sources by name
 
-The source key will be HelloService
+The source key will be HelloService.
 
 ```go
     // @DigoSource(HelloService)
