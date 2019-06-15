@@ -14,6 +14,10 @@
 -------------------------
 
 * [Before use](#before-use)
+* [Installation](#installation)
+* [Usage](#usage)
+    * [Generate codes](#generate-codes)
+    * [Inject dependencies](#inject-dependencies)
 * [Annotations](#annotations)
     * [DigoSource](#digosource)
         * [Set sources by type](#set-sources-by-type)
@@ -29,6 +33,48 @@
 #### Wonderful package structure
 
 [Trying Clean Architecture on Golang - Iman Tumorang](https://hackernoon.com/golang-clean-archithecture-efd6d7c43047)
+
+
+## Installation
+
+```bash
+go get -u github.com/lokstory/digo
+```
+
+## Usage
+
+### Generate codes
+
+Linux
+
+```bash
+go run $GOPATH\src\github.com\lokstory\digo\main.go -path=PROJECT_ROOT_PATH
+```
+
+Windows
+
+```cmd
+go run %GOPATH%\src\github.com\lokstory\digo\main.go -path=PROJECT_ROOT_PATH
+```
+
+* It will generated the digo package in the root path of project
+* It will generated digo.go in packages which need to inject dependencies
+
+
+### Start
+
+```go
+package main
+
+import (
+	"./digo"
+)
+
+func main() {
+	// Inject dependencies
+    digo.Start()
+}
+```
 
 ## Annotations
 
