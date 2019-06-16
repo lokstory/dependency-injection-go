@@ -30,6 +30,8 @@
 
 ## Before use
 
+Recommend putting interfaces and models in separated packages without business logic.
+
 #### Wonderful package structure
 
 [Trying Clean Architecture on Golang - Iman Tumorang](https://hackernoon.com/golang-clean-archithecture-efd6d7c43047)
