@@ -84,7 +84,7 @@ func main() {
 
 * Expose variables by upper camel case
 * Keys must be unique
-* Variable's types must be declared even it can be omitted
+* Variables' types must be declared even it can be omitted
 * Variables must be initialized before call digo.Start() 
 
 #### Set sources by type
