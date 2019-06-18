@@ -89,7 +89,7 @@ func main() {
 
 #### Set sources by type
 
-The source key will be IHelloService.
+The source key will be package/path/IHelloService.
 
 ```go
     // @DigoSource
